@@ -1,0 +1,837 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue项目第1章 入门 项目介绍 工具安装和环境搭建（ndoe.js,npm,mongodb） 官网安装node、MongoDB   初始化项目 安装脚手架 npm i -g @vue&#x2F;cli   web端 vue create web 创建web端项目   后端 vue create admin创建后台管理界面项目   server端 npm init -y  初始化服务端项目 新建服务端入口文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/08/24/Vue%E9%A1%B9%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Vue项目第1章 入门 项目介绍 工具安装和环境搭建（ndoe.js,npm,mongodb） 官网安装node、MongoDB   初始化项目 安装脚手架 npm i -g @vue&#x2F;cli   web端 vue create web 创建web端项目   后端 vue create admin创建后台管理界面项目   server端 npm init -y  初始化服务端项目 新建服务端入口文">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-24T15:41:22.420Z">
+<meta property="article:modified_time" content="2022-08-24T15:43:57.621Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Jiayuan</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                时间轴
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-category-fill"></i>
+                项目分类
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="http://175.178.115.164:1998/#/home">
+                    
+                    移动端仿网易云音乐
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                工具箱
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="http://175.178.115.164:3000/">
+                    
+                    网易云音乐Api
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-24 23:41" pubdate>
+          August 24, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          80 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Vue项目"><a href="#Vue项目" class="headerlink" title="Vue项目"></a>Vue项目</h1><h2 id="第1章-入门"><a href="#第1章-入门" class="headerlink" title="第1章 入门"></a>第1章 入门</h2><ol>
+<li>项目介绍</li>
+<li>工具安装和环境搭建（ndoe.js,npm,mongodb）<ul>
+<li>官网安装node、MongoDB</li>
+</ul>
+</li>
+<li>初始化项目<ul>
+<li>安装脚手架<ul>
+<li><code>npm i -g @vue/cli</code></li>
+</ul>
+</li>
+<li>web端<ul>
+<li><code>vue create web</code> 创建web端项目</li>
+</ul>
+</li>
+<li>后端<ul>
+<li><code>vue create admin</code>创建后台管理界面项目</li>
+</ul>
+</li>
+<li>server端<ul>
+<li><code>npm init -y </code> 初始化服务端项目</li>
+<li>新建服务端入口文件 <code>index.js</code></li>
+<li>全局安装实时刷新插件  <code>npm i -g nodemon</code></li>
+<li>配置服务端入口 <code>&quot;serve&quot;:&quot;nodemon index.js&quot;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="第2章-管理后台"><a href="#第2章-管理后台" class="headerlink" title="第2章 管理后台"></a>第2章 管理后台</h2><ol>
+<li><p>基于<code>Element UI</code>的后台管理界面<code>admin</code></p>
+<ul>
+<li>安装 <code>vue add element</code> </li>
+<li>安装路由 <code>vue add router</code></li>
+<li><code>Main.vue</code>下存放整体布局<ul>
+<li>调整<code>Main.vue</code>布局</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>创建分类操作<code>Main.vue</code></p>
+<ul>
+<li><p>分类菜单设置<code>router</code>属性，点击跳转到index指定路由</p>
+<ul>
+<li>```vue<el-menu router :default-openeds="['1', '3']">
+      <el-submenu index="1">
+        <template slot="title"><i class="el-icon-message"></i>内容管理</template>
+        <el-menu-item-group>
+          <template slot="title">分类</template>
+          <!-- 跳转到 categories/create /  1-2 -->
+          <el-menu-item index="/categories/create">新建分类</el-menu-item>
+          <el-menu-item index="/categories/list">分类列表</el-menu-item>
+        </el-menu-item-group>        
+      </el-submenu>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xl"><br>- 因为分类是`Main.vue`的子路由，所以容器设置子路由，包括`<span class="hljs-built_in">path</span>`，对应组件等<br><br>  - ```js<br>    const routes = [<br>      &#123;<br>        <span class="hljs-built_in">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>,<br>        <span class="hljs-keyword">name</span>: <span class="hljs-string">&#x27;main&#x27;</span>,<br>        component: Main,<br>        children:[<br>          <span class="hljs-comment">// 添加子路由 在 Main里面  通过 router-vier显示</span><br>          &#123;<span class="hljs-built_in">path</span>:<span class="hljs-string">&#x27;/categories/create&#x27;</span>,component:CategoryEdit&#125;,<br>          &#123;<span class="hljs-built_in">path</span>:<span class="hljs-string">&#x27;/categories/list&#x27;</span>,component:CategoryList&#125;<br>        ]<br>      &#125;,<br>    ]<br></code></pre></td></tr></table></figure></el-menu></li>
+</ul>
+</li>
+<li><p>给输入框双向绑定，获取数据<code>CategoriesEdit.vue</code></p>
+<ul>
+<li>```vue<br><el-input v-model="model.name"></el-input><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>- 保存按钮通过绑定事件，通过`axiso`进行异步请求  `npm i axios`<br><br>- 请求接口通过`http.js`进行<br><br>  - ```js<br>    // 用于请求接口文件<br>    import axios from <span class="hljs-string">&quot;axios&quot;</span><span class="hljs-comment">;</span><br>    const http = axios.create(&#123;<br><span class="hljs-title">        baseURL:&#x27;http://localhost:</span><span class="hljs-number">3000</span>/admin/api&#x27; <br>    &#125;)<br>    export default http<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在<code>main.js</code>使用请求接口</p>
+<ul>
+<li>```js<br>// 使用请求接口<br>import http from ‘./http’<br>// 这样就可以任意文件通过 this.$http 访问<br>Vue.prototype.$http = http<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>- 服务端`index.js`写请求接口，安装express，mongoose，cors允许跨域请求 `npm i express@next mongoose cors`<br><br>- 在服务器上连接数据库`plugins/db.js`<br><br>  - ```js<br>    // 数据库接口<br>    module.exports = app =&gt; &#123;<br>        const mongoose = require(<span class="hljs-string">&quot;mongoose&quot;</span>)<br><span class="hljs-title">        mongoose.connect(&#x27;mongodb://127.0.0.1:</span><span class="hljs-number">27017</span>/node-vue-moba&#x27;,&#123;<br><span class="hljs-title">            useNewUrlParser:</span><span class="hljs-literal">true</span><br>        &#125;)<br>    &#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Category模型，存放Category存放的数据<code>models/Category.js</code></p>
+<ul>
+<li>```js<br>const mongoose = require(‘mongoose’)<br>const schema =  new mongoose.Schema({<pre><code class="hljs">name:&#123; type:String &#125;
+</code></pre>
+})<br>module.exports = mongoose.model(‘Category’,schema)<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><br>- 子路由文件`<span class="language-javascript">routes/admin/index.<span class="hljs-property">js</span></span>`<br><br>  - ```<span class="language-javascript">js</span><br><span class="language-javascript">    <span class="hljs-comment">// 后端路由</span></span><br><span class="language-javascript">    <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)</span><br><span class="language-javascript">        <span class="hljs-comment">// express的子路由</span></span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> router = express.<span class="hljs-title class_">Router</span>()</span><br><span class="language-javascript">    </span><br><span class="language-javascript">        <span class="hljs-comment">// 使用 Category模型</span></span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Category</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../../models/Category&#x27;</span>)</span><br><span class="language-javascript">    </span><br><span class="language-javascript">        <span class="hljs-comment">// 接口地址</span></span><br><span class="language-javascript">        router.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/categories&#x27;</span>,<span class="hljs-title function_">async</span>(req,res)=&gt;&#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">const</span> model = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Category</span>.<span class="hljs-title function_">create</span>(req.<span class="hljs-property">body</span>)</span><br><span class="language-javascript">            <span class="hljs-comment">// 发回给客户端进行接收</span></span><br><span class="language-javascript">            res.<span class="hljs-title function_">send</span>(model)</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        <span class="hljs-comment">// 接收总路由的路由</span></span><br><span class="language-javascript">        app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/admin/api&#x27;</span>,router)</span><br><span class="language-javascript">    &#125;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>主路由进行接口，跨域，express使用等<code>index.js</code></p>
+<ul>
+<li>```JS<br>//  服务端请求接口<br>const express = require(‘express’)<br>const app = express()<br>// 跨域请求模块<br>app.use(require(‘cors’)())<br>// 使用await 的中间件<br>app.use(express.json())<br>// 将接口文件传给admin 路由 参数与 admin路由参数对应<br>require(‘./routes/admin/index’)(app)<br>// 同理数据库接口<br>require(‘./plugins/db’)(app)<br>app.listen(3000,() =&gt; {<pre><code class="hljs">console.log(&#39;服务器启动成功!,http://localhost:3000&#39;);
+</code></pre>
+})<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><br>- save进行post请求<br><br>  - ```vue<br>    &lt;el-form label-width=<span class="hljs-string">&quot;120px&quot;</span> <span class="hljs-meta">@submit</span>.native.prevent=<span class="hljs-string">&quot;save&quot;</span>&gt;<br>    <br>    methods: &#123;<br>    <span class="hljs-comment">// 通过 axios 提交数据</span><br>    async save()<br>    	<span class="hljs-comment">// 请求接口</span><br>    	<span class="hljs-keyword">const</span> res = await <span class="hljs-keyword">this</span>.$http.post(<span class="hljs-string">&#x27;categories&#x27;</span>,<span class="hljs-keyword">this</span>.model)<br>    	<span class="hljs-comment">//  数据发送成功，跳转到 list</span><br>    	<span class="hljs-keyword">this</span>.$router.push(<span class="hljs-string">&#x27;/categories/list&#x27;</span>)<br>    	<span class="hljs-comment">//  跳转成功提示</span><br>    	<span class="hljs-keyword">this</span>.$message(&#123;<br>            type:<span class="hljs-string">&#x27;success&#x27;</span>,<br>            message:<span class="hljs-string">&#x27;保存成功&#x27;</span><br>    	&#125;)<br>       &#125;,<br>    &#125;,<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>列表页<code>CategoriesList.vue</code></p>
+<ul>
+<li><p>表格属性编写</p>
+<ul>
+<li>```vue<el-table :data="items">
+        <el-table-column prop="_id" label="ID" width="230"></el-table-column>
+        <el-table-column prop="name" label="分类名称"></el-table-column>
+      </el-table>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vim"><br>- 接口地址`routes/admin/<span class="hljs-built_in">index</span>.js`<br><br>  - ```js<br>    // 列表接口地址<br>        router.<span class="hljs-built_in">get</span>(<span class="hljs-string">&#x27;/categories&#x27;</span>,async(req,<span class="hljs-keyword">res</span>)=&gt;&#123;<br>            const <span class="hljs-built_in">items</span> = await Category.<span class="hljs-keyword">find</span>().limit(<span class="hljs-number">10</span>)<br>            // 发回给客户端<span class="hljs-built_in">items</span><br>            <span class="hljs-keyword">res</span>.send(<span class="hljs-built_in">items</span>)<br>        &#125;)<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>列表页的增删改</p>
+<ul>
+<li><p>修改页面，在<code>CategoryList.vue</code>下，新增一个编辑按钮，编辑的按钮通过id找到对应的分类</p>
+<ul>
+<li>```vue<br>&lt;el-button type=”primary” size=”small” @click=”$router.push(<code>/categories/edit/$&#123;scope.row._id&#125;</code>)”&gt;编辑<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>- `router/index.js`下通过id，进行页面跳转，与新建页面公用一个组件<br><br>  - ```js<br>    // 为编辑页面使用跳转的地址,props 将页面id注入CategoryEdit中，然后CategoryEdit接收props<br><span class="hljs-title">          &#123; path:&#x27;/categories/edit/:id&#x27;,component:CategoryEdit,props:</span><span class="hljs-literal">true</span> &#125;,<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在<code>CategoryEdit.vue</code>下，通过props接收到id</p>
+<ul>
+<li>```js<br>props:{ id:{} },<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml"></span><br><span class="language-xml">- 通过id控制，是否编辑或新建分类</span><br><span class="language-xml"></span><br><span class="language-xml">  - ```html</span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">id</span> ? <span class="hljs-string">&quot;编辑&quot;</span> : <span class="hljs-string">&quot;新建&quot;</span>&#125;&#125;</span><span class="language-xml">分类<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>如果有id执行 <code>fetch</code>方法</p>
+<ul>
+<li>```js<br>async fetch() {<pre><code class="hljs">const res = await this.$http.get(`categories/$&#123;this.id&#125;`)
+this.model = res.data
+</code></pre>
+}created() {<pre><code class="hljs">// 如果有了 id 就是编辑页面 才执行
+this.id &amp;&amp; this.fetch()
+</code></pre>
+},<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><br>- 使用 `put`方法调用编辑页面接口<br><br>  - ```js<br>    async save()&#123;<br>        <span class="hljs-comment">// 数据更新或者新建数据</span><br>        let res<br>        <span class="hljs-comment">// 如果有 ID 则编辑</span><br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.id) &#123;<br>    <span class="hljs-comment">// 请求编辑页面接口   put 方法</span><br>    <span class="hljs-keyword">const</span> res = await <span class="hljs-keyword">this</span>.$http.put(`categories/$&#123;<span class="hljs-keyword">this</span>.id&#125;`,<span class="hljs-keyword">this</span>.model)<br>                        <span class="hljs-comment">// 否则为新建</span><br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                       <span class="hljs-comment">// 请求新建页面接口</span><br>                        <span class="hljs-keyword">const</span> res = await <span class="hljs-keyword">this</span>.$http.post(<span class="hljs-string">&#x27;categories&#x27;</span>,<span class="hljs-keyword">this</span>.model)<br>                    &#125;<br>                    <span class="hljs-comment">//  数据发送成功，跳转到 list</span><br>                    <span class="hljs-keyword">this</span>.$router.push(<span class="hljs-string">&#x27;/categories/list&#x27;</span>)<br>                    <span class="hljs-comment">//  跳转成功提示</span><br>                    <span class="hljs-keyword">this</span>.$message(&#123;<br>                        type:<span class="hljs-string">&#x27;success&#x27;</span>,<br>                        message:<span class="hljs-string">&#x27;保存成功&#x27;</span><br>                    &#125;)<br>                &#125;,<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>routes/admin/index.js</code>编写编辑页面接口地址</p>
+<ul>
+<li><p>```js<br>// 更新（编辑）列表接口地址</p>
+<pre><code class="hljs"> router.put(&#39;/categories/:id&#39;,async(req,res)=&gt;&#123;
+    const model = await Category.findByIdAndUpdate(req.params.id,req.body)
+    // 发回给客户端
+    res.send(model)
+&#125;)
+</code></pre>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><br>- 分类删除<br><br>  - `CategoryList.vue`下获取到当下行的数据<br><br>    - ```vue<br>      &lt;el-button type=<span class="hljs-string">&quot;danger&quot;</span> size=<span class="hljs-string">&quot;small&quot;</span> @click=<span class="hljs-string">&quot;remove(scope.row)&quot;</span>&gt;删除&lt;/el-button&gt;<br></code></pre></td></tr></table></figure></li>
+<li><p>通过<code>remove</code>方法删除</p>
+<ul>
+<li>```js<br>// 删除分类列表<pre><code class="hljs">    async remove(row) &#123;
+      this.$confirm(`是否确定删除分类?&quot;$&#123;row.name&#125;&quot;`, &#39;提示&#39;, &#123;
+      confirmButtonText: &#39;确定&#39;,
+      cancelButtonText: &#39;取消&#39;,
+      type: &#39;warning&#39;
+    &#125;).then(async() =&gt; &#123;
+      // 请求删除接口
+      const res = await this.$http.delete(`categories/$&#123;row._id&#125;`)
+      this.$message(&#123;
+        type: &#39;success&#39;,
+        message: &#39;删除成功!&#39;
+      &#125;);
+      // 重新(刷新页面)获取数据
+      this.fetch()
+    &#125;).catch(() =&gt; &#123;
+      this.$message(&#123;
+        type: &#39;info&#39;,
+        message: &#39;已取消删除&#39;
+      &#125;)         
+    &#125;)
+    &#125;
+    // 删除分类结束
+</code></pre>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><br>- `routes/admin/index.js`下删除的接口<br><br>  - ```js<br>     <span class="hljs-comment">// 通过delete 方法删除列表接口地址</span><br>         router.delete(&#x27;/categories/:id&#x27;,async(req,res)=&gt;&#123;<br>            const model = await <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Category</span>.</span></span>find<span class="hljs-constructor">ByIdAndDelete(<span class="hljs-params">req</span>.<span class="hljs-params">params</span>.<span class="hljs-params">id</span>,<span class="hljs-params">req</span>.<span class="hljs-params">body</span>)</span><br>            <span class="hljs-comment">// 发回给客户端model</span><br>            res.send(&#123;<br>                success:<span class="hljs-literal">true</span><br>            &#125;)<br>        &#125;)<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>子分类</p>
+<ul>
+<li><p><code>CategoryList.vue</code>下，设置上级分类，prop 展示内容为上级分类名称</p>
+<ul>
+<li><p>```vue<br><el-table-column prop="parent.name" label="上级分类"></el-table-column></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><br>- `CategoryEdit.vue`下，设置上级分类下拉框，并循环遍历获取到的上级分类名称<br><br>  - ```vue<br>    <span class="hljs-comment">&lt;!-- 子分类开始 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">el-form-item</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;上级分类&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">el-select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;model.parent&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">el-option</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in parents&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item._id&quot;</span></span><br><span class="hljs-tag">                       <span class="hljs-attr">:label</span>=<span class="hljs-string">&quot;item.name&quot;</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">&quot;item._id&quot;</span></span><br><span class="hljs-tag">                       &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">el-option</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">el-select</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">el-form-item</span>&gt;</span><br>              <span class="hljs-comment">&lt;!-- 子分类结束 --&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li><p>```js<br>// 设置parent数据为空<br>// 上级分类选项</p>
+<pre><code class="hljs">parents:[]
+</code></pre>
+<p>// 上级分类选项结束</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><br>```<span class="language-javascript">js</span><br><span class="language-javascript"><span class="hljs-comment">// 上级分类接口去分类列表接口一致</span></span><br><span class="language-javascript"><span class="hljs-comment">// 获取上级分类</span></span><br><span class="language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-title function_">fetchParents</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">$http</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">`categories`</span>)</span><br><span class="language-javascript">    <span class="hljs-variable language_">this</span>.<span class="hljs-property">parents</span> = res.<span class="hljs-property">data</span></span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript"><span class="hljs-comment">// 获取上级分类结束</span></span><br><span class="language-javascript"></span><br><span class="language-javascript"><span class="hljs-title function_">created</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">    <span class="hljs-comment">// 页面开始获取到数据</span></span><br><span class="language-javascript">    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fetchParents</span>()</span><br><span class="language-javascript">&#125;,</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>服务器端<code>models/index.js</code>设置存储第二级分类的数据类型</p>
+<ul>
+<li>```js<br>// 上级分类<pre><code class="hljs">parent:&#123; type:mongoose.SchemaTypes.ObjectId,ref:&#39;Category&#39; &#125;,
+</code></pre>
+// 上级分类结束<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><br>- 重新设置列表接口的数据查出`routes/admin/index.js`<br><br>  - ```js<br>    <span class="hljs-comment">// 列表接口地址</span><br>    router<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;/categories&#x27;</span>,<span class="hljs-built_in">async</span>(req,res)=&gt;&#123;<br>        <span class="hljs-comment">// 查出ID和完整数据 populate</span><br>        const items = await Category<span class="hljs-selector-class">.find</span>()<span class="hljs-selector-class">.populate</span>(<span class="hljs-string">&#x27;parent&#x27;</span>)<span class="hljs-selector-class">.limit</span>(<span class="hljs-number">10</span>)<br>        <span class="hljs-comment">// 发回给客户端items</span><br>        res<span class="hljs-selector-class">.send</span>(items)<br>    &#125;)<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="第3章-通用CRUD接口"><a href="#第3章-通用CRUD接口" class="headerlink" title="第3章 通用CRUD接口"></a>第3章 通用CRUD接口</h2><ol>
+<li><p>安装<code>npm i inflection</code> 插件，该插件将大写转换成小写，单数转复数，因为模型是大写的，接口地址是小写加复数，所以要转换</p>
+</li>
+<li><p>接口使用前缀修改<code>/admin/api/rest/:resource</code>   rest是区别其他接口地址，resource是找到的资源</p>
+<ul>
+<li>```js<br>// 接收总路由的【CRUD通用接口】<br>app.use(‘/admin/api/rest/:resource’,<pre><code class="hljs">    // 当调用接口前使用中间件，将找到的小写改成大写及复数,再去调用接口
+    async(req,res,next) =&gt; &#123;
+//  通过 inflection将小写改大写，单数改负数
+const modelName = require(&#39;inflection&#39;).classify(req.params.resource)
+// 找到小写路径 inflection转大写及负数
+req.Model = require(`../../models/$&#123;modelName&#125;`)
+next()
+</code></pre>
+}<br>,router)<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><br><span class="hljs-number">3</span>. 将所有`Category`接口改写成`req.Model`<br><br>   - ```js<br>     <span class="hljs-comment">/*通用接口开始*/</span><br>         <span class="hljs-comment">// 新建列表接口地址</span><br>         router<span class="hljs-selector-class">.post</span>(<span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-built_in">async</span>(req,res)=&gt;&#123;<br>             const model = await req<span class="hljs-selector-class">.Model</span><span class="hljs-selector-class">.create</span>(req.body)<br>             <span class="hljs-comment">// 发回给客户端model</span><br>             res<span class="hljs-selector-class">.send</span>(model)<br>         &#125;)<br>          <span class="hljs-comment">// 更新（编辑）列表接口地址</span><br>          router<span class="hljs-selector-class">.put</span>(<span class="hljs-string">&#x27;/:id&#x27;</span>,<span class="hljs-built_in">async</span>(req,res)=&gt;&#123;<br>             const model = await req<span class="hljs-selector-class">.Model</span><span class="hljs-selector-class">.findByIdAndUpdate</span>(req<span class="hljs-selector-class">.params</span><span class="hljs-selector-class">.id</span>,req.body)<br>             <span class="hljs-comment">// 发回给客户端model</span><br>             res<span class="hljs-selector-class">.send</span>(model)<br>         &#125;)<br>     <br>         <span class="hljs-comment">// 列表接口地址</span><br>         router<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-built_in">async</span>(req,res)=&gt;&#123;<br>             <span class="hljs-comment">// 查出ID和完整数据s</span><br>             const items = await req<span class="hljs-selector-class">.Model</span><span class="hljs-selector-class">.find</span>()<span class="hljs-selector-class">.populate</span>(<span class="hljs-string">&#x27;parent&#x27;</span>)<span class="hljs-selector-class">.limit</span>(<span class="hljs-number">10</span>)<br>             <span class="hljs-comment">// 发回给客户端items</span><br>             res<span class="hljs-selector-class">.send</span>(items)<br>         &#125;)<br>          <span class="hljs-comment">// 编辑页面接口地址</span><br>          router<span class="hljs-selector-class">.get</span>(<span class="hljs-string">&#x27;/:id&#x27;</span>,<span class="hljs-built_in">async</span>(req,res)=&gt;&#123;<br>             const model = await req<span class="hljs-selector-class">.Model</span><span class="hljs-selector-class">.findById</span>(req<span class="hljs-selector-class">.params</span>.id)<br>             <span class="hljs-comment">// 发回给客户端model</span><br>             res<span class="hljs-selector-class">.send</span>(model)<br>         &#125;)<br>     <br>          <span class="hljs-comment">// 删除列表接口地址</span><br>          router<span class="hljs-selector-class">.delete</span>(<span class="hljs-string">&#x27;/:id&#x27;</span>,<span class="hljs-built_in">async</span>(req,res)=&gt;&#123;<br>             const model = await req<span class="hljs-selector-class">.Model</span><span class="hljs-selector-class">.findByIdAndDelete</span>(req<span class="hljs-selector-class">.params</span><span class="hljs-selector-class">.id</span>,req.body)<br>             <span class="hljs-comment">// 发回给客户端model</span><br>             res<span class="hljs-selector-class">.send</span>(&#123;<br>                 success:true<br>             &#125;)<br>         &#125;)<br>         <span class="hljs-comment">/*通用接口结束*/</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>前端页面请求接口的写法为:<code>rest/categories</code></p>
+</li>
+</ol>
+<h3 id="物品装备管理"><a href="#物品装备管理" class="headerlink" title="物品装备管理"></a>物品装备管理</h3><ol>
+<li><p>调整前端页面<code>ItemEdit.vue</code> <code>ItemList.vue</code>,路由，菜单等</p>
+</li>
+<li><p>因为调整了通用接口，所以只需要加模型即可<code>models/Item.js</code></p>
+<ul>
+<li>```js<br>const mongoose = require(‘mongoose’)<br>const schema =  new mongoose.Schema({<pre><code class="hljs">name:&#123; type:String &#125;,
+icon:&#123; type:String &#125;
+</code></pre>
+})<br>module.exports = mongoose.model(‘Item’,schema)<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><br><span class="hljs-comment">### 上传图片</span><br><br><span class="hljs-number">1</span>. 调整前端页面`<span class="hljs-title class_">ItemEdit</span>.vue`<br><br>   - ```vue<br>     &lt;el-form-item label=<span class="hljs-string">&quot;图标&quot;</span>&gt;<br>             &lt;el-upload<br>               class=<span class="hljs-string">&quot;avatar-uploader&quot;</span><br>               <span class="hljs-symbol">:action=<span class="hljs-string">&quot;$http.defaults.baseURL + &#x27;/upload&#x27;&quot;</span></span><br>               <span class="hljs-symbol">:show-file-list=<span class="hljs-string">&quot;false&quot;</span></span><br>               <span class="hljs-symbol">:on-success=<span class="hljs-string">&quot;afterUpload&quot;</span></span><br>             &gt;<br>               &lt;img v-<span class="hljs-keyword">if</span>=<span class="hljs-string">&quot;model.icon&quot;</span> <span class="hljs-symbol">:src=<span class="hljs-string">&quot;model.icon&quot;</span></span> class=<span class="hljs-string">&quot;avatar&quot;</span> /&gt;<br>               &lt;i v-<span class="hljs-keyword">else</span> class=<span class="hljs-string">&quot;el-icon-plus avatar-uploader-icon&quot;</span>&gt;&lt;/i&gt;<br>             &lt;/el-upload&gt;<br>           &lt;/el-form-item&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>afterUpload</code>方法</p>
+<ul>
+<li>```js<br>afterUpload(res) {<pre><code class="hljs">  // 上传图片操作
+  this.$set(this.model,&#39;icon&#39;,res.url)
+&#125;,
+</code></pre>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk"><br><span class="hljs-number">3</span>. `server<span class="hljs-regexp">/routes/</span>admin/index.js`接口请求  `npm i multer` 将二进制文件转为静态文件<br><br>   - ```js<br>     <span class="hljs-regexp">//</span> 上传图片接口<br>         const multer = require(<span class="hljs-string">&#x27;multer&#x27;</span>)<br>         <span class="hljs-regexp">//</span> 参数为目标地址<br>         const upload = multer(&#123;dest:__dirname + <span class="hljs-string">&#x27;/../../uploads&#x27;</span>&#125;)<br>         <span class="hljs-regexp">//</span> 字段名为 form data里面的 file<br>         app.post(<span class="hljs-string">&#x27;/admin/api/upload&#x27;</span>,upload.single(<span class="hljs-string">&#x27;file&#x27;</span>),async(req,res) =&gt; &#123;<br>             <span class="hljs-regexp">//</span> npm i multer 处理数据中间件<br>             const file = req.file<br>             file.url = `http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">3000</span><span class="hljs-regexp">/uploads/</span><span class="hljs-variable">$&#123;file.filename&#125;</span>`<br>             res.send(file)<br>         &#125;)<br>         <span class="hljs-regexp">//</span> 上传图片接口结束<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>server/index.js</code>将uploads文件下的静态文件展示给前端</p>
+<ul>
+<li>```js<br>// 表示 uploads下文件都是静态文件用于展示给前端<br>app.use(‘/uploads’,express.static(__dirname + ‘/uploads’))<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><br><span class="hljs-number">5.</span> `ItemList.vue`前端展示<br><br>   - ```vue<br>     &lt;el-<span class="hljs-keyword">table</span>-<span class="hljs-keyword">column</span> prop=&quot;icon&quot; label=&quot;图标&quot;&gt;<br>             &lt;<span class="hljs-keyword">template</span> slot-scope=&quot;scope&quot;&gt;<br>                 &lt;img :src=&quot;scope.row.icon&quot; style=&quot;height:3rem;&quot;&gt;<br>             &lt;/<span class="hljs-keyword">template</span>&gt;<br>           &lt;/el-<span class="hljs-keyword">table</span>-<span class="hljs-keyword">column</span>&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2022/08/24/Vue项目/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 24, 2022</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>Licensed under</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/24/%E9%87%8D%E9%93%B8%E8%8B%B1%E8%AF%AD%E4%BD%93%E7%B3%BB/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/24/%E5%9B%9B%E5%85%AD%E7%BA%A7/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>

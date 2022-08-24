@@ -1,0 +1,931 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第2章程序设计语言程序设计语言的基本概念        题目           传值调用与传地址调用  题目                编译、解释程序翻译阶段 题目    符号表 题目    词法分析   语法分析 语义分析 目标代码生成 语义分析动态语义错误 中间代码生成 题目                       正规式（词法分析工具） 题目     有限自动机 题目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第2章程序设计语言">
+<meta property="og:url" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第2章程序设计语言程序设计语言的基本概念        题目           传值调用与传地址调用  题目                编译、解释程序翻译阶段 题目    符号表 题目    词法分析   语法分析 语义分析 目标代码生成 语义分析动态语义错误 中间代码生成 题目                       正规式（词法分析工具） 题目     有限自动机 题目">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-16_22-17-45.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-11-30.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-11-39.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-13-00.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-13-44.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-14-19.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-15-34.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-16-12.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-20-43.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-21-13.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-26-20.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-27-28.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-29-53.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-30-56.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-31-46.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-33-15.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-46-33.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-51-09.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-54-01.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-00-12.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-08-10.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-09-42.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-10-42.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-11-28.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-12-21.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-13-10.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-13-36.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-14-17.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-21-03.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-26-27.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-28-00.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-29-42.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-31-00.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-34-34.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-39-12.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-43-54.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-58-13.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-22-10.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-24-31.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-25-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-26-23.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-29-15.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-30-14.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-31-17.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-31-52.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-32-22.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-32-49.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-39-25.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-39-45.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-40-40.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-46-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-51-57.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-54-22.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-11-30.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-19-39.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-56-43.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-01-28.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-01-47.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-02-20.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-02-49.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-03-23.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-03-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-04-17.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-04-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-05-06.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-06-32.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-07-04.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-13-11.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-14-25.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-15-45.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-17-19.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-18-26.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-21-10.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-21-42.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-22-04.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-22-46.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-23-19.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-23-55.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-32-58.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-38-11.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-40-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-42-27.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-46-59.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-52-38.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-23-49.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-25-42.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-30-05.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-31-38.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-32-55.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-35-17.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-36-50.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-42-14.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-43-19.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-44-17.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-45-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-46-47.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-48-02.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-50-09.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-51-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-52-56.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-55-04.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-56-50.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_23-00-14.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_23-02-53.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_23-05-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-15-13.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-21-01.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-24-47.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-31-48.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-32-25.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-32-58.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-33-31.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-35-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-49-27.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-52-20.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-55-33.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-59-25.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-03-22.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-18-50.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-29-34.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-36-24.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-37-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-39-03.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-41-53.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-42-39.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Users/JiayA/Desktop/Snipaste_2022-04-19_21-43-04.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-44-03.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-45-10.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-47-52.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-48-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-49-27.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-50-53.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-51-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-53-34.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-31-06.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-33-00.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-35-34.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-36-26.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-36-54.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-38-12.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-40-09.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-40-54.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-42-31.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-44-07.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-44-45.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-45-16.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-46-21.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-47-24.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-49-09.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-50-13.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-52-04.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-52-35.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-53-04.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-53-31.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-54-41.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-55-55.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-56-30.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-57-54.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-58-51.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-59-46.png">
+<meta property="og:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_11-01-14.png">
+<meta property="article:published_time" content="2022-08-24T15:20:09.000Z">
+<meta property="article:modified_time" content="2022-08-24T15:38:46.055Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-16_22-17-45.png">
+  
+  
+  
+  <title>第2章程序设计语言 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Jiayuan</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                主页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                时间轴
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-category-fill"></i>
+                项目分类
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="http://175.178.115.164:1998/#/home">
+                    
+                    移动端仿网易云音乐
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                工具箱
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="http://175.178.115.164:3000/">
+                    
+                    网易云音乐Api
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第2章程序设计语言"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-24 23:20" pubdate>
+          August 24, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          144 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          2 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第2章程序设计语言</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第2章程序设计语言"><a href="#第2章程序设计语言" class="headerlink" title="第2章程序设计语言"></a>第2章程序设计语言</h1><h2 id="程序设计语言的基本概念"><a href="#程序设计语言的基本概念" class="headerlink" title="程序设计语言的基本概念"></a>程序设计语言的基本概念</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-16_22-17-45.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-11-30.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-11-39.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-13-00.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-13-44.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-14-19.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-15-34.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-16-12.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-20-43.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-21-13.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-26-20.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-27-28.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-29-53.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-30-56.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-31-46.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-33-15.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-46-33.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-51-09.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_22-54-01.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="传值调用与传地址调用"><a href="#传值调用与传地址调用" class="headerlink" title="传值调用与传地址调用"></a>传值调用与传地址调用</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-00-12.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-08-10.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-09-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-10-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-11-28.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-12-21.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-13-10.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-13-36.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-14-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-21-03.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-26-27.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-28-00.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-29-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-31-00.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-34-34.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-39-12.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-43-54.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-17_23-58-13.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="编译、解释程序翻译阶段"><a href="#编译、解释程序翻译阶段" class="headerlink" title="编译、解释程序翻译阶段"></a>编译、解释程序翻译阶段</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-22-10.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-24-31.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-25-51.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-26-23.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-29-15.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-30-14.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-31-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-31-52.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-32-22.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-32-49.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-39-25.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-39-45.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-40-40.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-46-51.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-51-57.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="目标代码生成"><a href="#目标代码生成" class="headerlink" title="目标代码生成"></a>目标代码生成</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-54-22.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="语义分析动态语义错误"><a href="#语义分析动态语义错误" class="headerlink" title="语义分析动态语义错误"></a>语义分析动态语义错误</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-11-30.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="中间代码生成"><a href="#中间代码生成" class="headerlink" title="中间代码生成"></a>中间代码生成</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-19-39.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-4"><a href="#题目-4" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_20-56-43.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-01-28.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-01-47.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-02-20.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-02-49.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-03-23.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-03-51.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-04-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-04-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-05-06.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-06-32.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-07-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-13-11.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-14-25.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-15-45.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-17-19.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-18-26.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-21-10.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-21-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-22-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-22-46.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-23-19.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-23-55.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="正规式（词法分析工具）"><a href="#正规式（词法分析工具）" class="headerlink" title="正规式（词法分析工具）"></a>正规式（词法分析工具）</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-32-58.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-5"><a href="#题目-5" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-38-11.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-40-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-42-27.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-46-59.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_21-52-38.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="有限自动机"><a href="#有限自动机" class="headerlink" title="有限自动机"></a>有限自动机</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-23-49.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-6"><a href="#题目-6" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-25-42.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-30-05.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-31-38.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-32-55.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-35-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-36-50.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-42-14.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-43-19.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-44-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-45-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-46-47.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-48-02.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-50-09.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-51-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-52-56.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-55-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_22-56-50.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_23-00-14.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_23-02-53.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-18_23-05-51.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="上下文无关文法"><a href="#上下文无关文法" class="headerlink" title="上下文无关文法"></a>上下文无关文法</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-15-13.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-21-01.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-7"><a href="#题目-7" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-24-47.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-31-48.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-32-25.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-32-58.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-33-31.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-35-51.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-49-27.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-52-20.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-55-33.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="中缀、后缀表达式转换"><a href="#中缀、后缀表达式转换" class="headerlink" title="中缀、后缀表达式转换"></a>中缀、后缀表达式转换</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_20-59-25.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-03-22.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="语法树中、后序遍历"><a href="#语法树中、后序遍历" class="headerlink" title="语法树中、后序遍历"></a>语法树中、后序遍历</h2><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-18-50.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="题目-8"><a href="#题目-8" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-29-34.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-36-24.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-37-51.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-39-03.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-41-53.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-42-39.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Users/JiayA/Desktop/Snipaste_2022-04-19_21-43-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-44-03.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-45-10.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-47-52.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-48-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-49-27.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-50-53.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-51-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-19_21-53-34.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="杂题选讲"><a href="#杂题选讲" class="headerlink" title="杂题选讲"></a>杂题选讲</h2><h3 id="题目-9"><a href="#题目-9" class="headerlink" title="题目"></a>题目</h3><p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-31-06.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-33-00.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-35-34.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-36-26.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-36-54.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-38-12.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-40-09.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-40-54.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-42-31.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-44-07.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-44-45.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-45-16.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-46-21.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-47-24.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-49-09.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-50-13.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-52-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-52-35.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-53-04.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-53-31.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-54-41.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-55-55.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-56-30.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-57-54.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-58-51.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_10-59-46.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2022/08/24/%E7%AC%AC2%E7%AB%A0%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80/Snipaste_2022-04-20_11-01-14.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第2章程序设计语言</div>
+      <div>http://example.com/2022/08/24/第2章程序设计语言/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 24, 2022</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>Licensed under</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/24/%E7%AC%AC3%E7%AB%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="第3章数据结构">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">第3章数据结构</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/24/%E7%AC%AC1%E7%AB%A0%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" title="第1章计算机基础">
+                        <span class="hidden-mobile">第1章计算机基础</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
